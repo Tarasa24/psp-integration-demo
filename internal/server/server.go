@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Tarasa24/psp-integration-demo/internal/apidocs"
 	"github.com/Tarasa24/psp-integration-demo/internal/provider"
 	"github.com/Tarasa24/psp-integration-demo/internal/repository"
 	"github.com/Tarasa24/psp-integration-demo/internal/server/handlers"
@@ -48,6 +49,15 @@ func NewServer(deps Deps) *http.Server {
 	mux.Handle("POST /v1/charges", chargeHandler)
 	mux.Handle("GET /v1/charges/{id}", chargeStatusHandler)
 	mux.Handle("POST /v1/webhooks/{provider}", webhookHandler)
+
+	mux.HandleFunc("GET /openapi.yaml", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/yaml")
+		_, _ = w.Write(apidocs.OpenAPISpec)
+	})
+	mux.HandleFunc("GET /docs", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		_, _ = w.Write(apidocs.SwaggerUI)
+	})
 
 	handler := middleware.Recovery(middleware.Logging(mux))
 

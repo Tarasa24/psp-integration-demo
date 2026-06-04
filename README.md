@@ -19,6 +19,11 @@ migrations/                 SQL migration files (applied at startup)
 
 **Why this structure**: Domain types and interfaces are defined without implementation details so the domain layer has zero external dependencies. Storage implements the repository interfaces; the HTTP layer depends only on the interfaces — enabling easy testing with mock repositories.
 
+## API Documentation
+
+Swagger UI available at `http://localhost:8080/docs` when the service is running.
+OpenAPI 3.0 spec: `http://localhost:8080/openapi.yaml`
+
 ## Quick Start
 
 ### Prerequisites
