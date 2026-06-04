@@ -2,6 +2,24 @@
 
 A production-quality Go service demonstrating a payment service provider (PSP) integration with 3D Secure support, idempotent charge creation, and asynchronous webhook processing.
 
+## Demo
+
+**Charge initiation** — create a charge, retrieve by ID:
+
+![Charge flow](demos/charge-flow.gif)
+
+**Idempotency replay** — same `X-Idempotency-Key` returns cached response with `X-Idempotent-Replay: true`:
+
+![Idempotency](demos/idempotency.gif)
+
+**Webhook ingestion** — valid signed event accepted, tampered signature rejected:
+
+![Webhook](demos/webhook.gif)
+
+**Error handling** — declined card (402), not found (404), 3DS required:
+
+![Errors](demos/errors.gif)
+
 ## Architecture
 
 ```
